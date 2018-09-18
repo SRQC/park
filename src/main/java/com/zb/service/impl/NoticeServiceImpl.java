@@ -1,0 +1,69 @@
+package com.zb.service.impl;
+
+import com.zb.dao.NoticeMapper;
+import com.zb.entity.Notice;
+import com.zb.service.NoticeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author SRQCDWB
+ * @create 2018-09-18 20:35
+ */
+@Service
+public class NoticeServiceImpl implements NoticeService {
+
+    @Autowired
+    private NoticeMapper noticeMapper;
+
+    public boolean updateNotice(Notice notice) {
+        try {
+            noticeMapper.updateNotice(notice);
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+            return false;
+        }
+    }
+
+    //名称模糊查询用户
+    public List<Notice> getByTitle(String tmpName) {
+        String title = "%"+tmpName+"%";
+        return noticeMapper.findByTitle(title);
+    }
+
+    //查询用户
+    public Notice getById(int id) {
+        return noticeMapper.findById(id);
+    }
+    //获取全部
+    public List<Notice> getAll() {
+        // TODO Auto-generated method stub
+        return noticeMapper.findAllNotice();
+    }
+
+    //删除
+    public boolean delNotice(int id) {
+        try {
+            noticeMapper.deleteNoticeById(id);
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+            return false;
+        }
+    }
+
+    //添加
+    public boolean addNotice(Notice notice) {
+        try {
+            noticeMapper.insertNotice(notice);
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+            return false;
+        }
+    }
+}
+
